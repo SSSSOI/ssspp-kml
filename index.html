@@ -1,36 +1,26 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Test Google Map + KML</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    html, body, #map {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-  </style>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCU11xaCkdvKGgpgzOIE-4VkELe6huiFwE"></script>
-  <script>
-    function initMap() {
-      const map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 5,
-        center: { lat: 22.9734, lng: 78.6569 },
-      });
-
-      const kmlUrl = "https://raw.githubusercontent.com/SSSSOI/ssspp-kml/main/RouteA_Vehicle_Movement_2025-04-29.kml";
-      new google.maps.KmlLayer({
-        url: kmlUrl,
-        map: map,
-        preserveViewport: true
-      });
-    }
-
-    window.addEventListener("load", initMap);
-  </script>
-</head>
-<body>
-  <div id="map"></div>
-</body>
+  <head>
+    <title>Simple Map</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCU11xaCkdvKGgpgzOIE-4VkELe6huiFwE"></script>
+    <script>
+      function initMap() {
+        const map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 5,
+          center: { lat: 22.9734, lng: 78.6569 },
+        });
+      }
+      window.onload = initMap;
+    </script>
+    <style>
+      html, body, #map {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+  </body>
 </html>
