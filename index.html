@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Live Vehicle Route Map</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCU11xaCkdvKGgpgzOIE-4VkELe6huiFwE"></script>
+  <style>
+    body, html { height: 100%; margin: 0; padding: 0; }
+    #map { height: 100%; width: 100%; }
+    #control-panel {
+      position: absolute;
+      top: 10px; left: 10px;
+      background: white; padding: 10px;
+      z-index: 5; border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+  <div id="control-panel">
+    <label for="route-date">Select Date:</label>
+    <input type="date" id="route-date" value="2025-04-29">
+    <button onclick="loadRoutes()">Load Routes</button>
+  </div>
+  <div id="map"></div>
+
+  <script>
+    let map, kmlLayers = [];
+
+    function initMap() {
+      map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 5,
+        center: { lat: 22.9734, lng: 78.6569 } // Center on India
+      });
+    }
+
+    function loadRoutes() {
+      // Clear existing layers
+      kmlLayers.forEach(layer => layer.setMap(null));
+      kmlLayers = [];
+
+      const date = document.getElementById("route-date").value;
+      const routes = ["RouteA", "RouteB", "RouteC", "RouteD", "RouteE"];
+      const baseUrl = "https://raw.githubusercontent.com/SSSSOI/ssspp-kml/main/";
+
+      routes.forEach(route => {
+        const url = `${baseUrl}${route}_Vehicle_Movement_${date}.kml`;
+        const layer = new google.maps.KmlLayer({
+          url: url,
+          map: map,
+          preserveViewport: true
+        });
+        kmlLayers.push(layer);
+      });
+    }
+
+    window.addEventListener("load", initMap);
+  </script>
+</body>
+</html>
